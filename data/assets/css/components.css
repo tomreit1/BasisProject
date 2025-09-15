@@ -1,0 +1,105 @@
+/* =========================
+   Key/Value Summary
+   ========================= */
+.kv{display:grid; grid-template-columns:130px 1fr; gap:8px 14px; margin:8px 0 12px}
+.k{color:var(--muted)} .v{color:var(--text)}
+.tag{
+  border:1px solid var(--border); padding:2px 10px; border-radius:999px;
+  font-size:12px; color:var(--muted);
+  background:color-mix(in srgb, var(--panel) 80%, var(--accent) 5%);
+}
+
+/* =========================
+   Meter (signal quality bar)
+   ========================= */
+.meter{
+  height:10px; background:linear-gradient(90deg,#2a2f36,#20242b);
+  border-radius:999px; overflow:hidden; border:1px solid var(--border)
+}
+.meter-bar{
+  height:100%; width:0%;
+  background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e);
+  transition:width .25s ease;
+}
+.meter-label{ font-size:13px; color:var(--muted); margin-top:6px }
+
+/* =========================
+   Buttons + health
+   ========================= */
+.btn{
+  padding:8px 12px; border:1px solid var(--border); background:var(--panel2); color:var(--text);
+  border-radius:10px; cursor:pointer; transition:background .15s ease, border-color .15s ease, transform .06s ease;
+}
+.btn:hover{ background:color-mix(in srgb, var(--panel2) 85%, var(--accent) 10%) }
+.btn:active{ transform:translateY(1px) }
+.btn-small{ padding:4px 8px; font-size:12px }
+
+.dot{display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; background:#999;
+     box-shadow:0 0 0 2px color-mix(in srgb, var(--ring) 40%, transparent)}
+.dot.ok{background:var(--ok)} .dot.bad{background:var(--bad)}
+.health-row{display:flex; align-items:center; gap:6px; margin:4px 0 10px}
+.health-chip{display:inline-flex; align-items:center; gap:6px; padding:6px 10px;
+             border:1px solid var(--border); border-radius:999px; background:var(--panel)}
+
+/* =========================
+   Sparkline
+   ========================= */
+.spark-wrap{
+  height:110px; background:var(--panel2); border:1px solid var(--border);
+  border-radius:12px; padding:8px
+}
+#rssiSpark{width:100%; height:100%}
+#sparkLine{stroke:var(--accent)}
+.spark-legend{display:flex; justify-content:space-between; color:var(--muted); margin-top:8px}
+
+/* =========================
+   Tasks table
+   ========================= */
+.table{
+  width:100%; border-collapse:separate; border-spacing:0;
+  border:1px solid var(--border); border-radius:12px; overflow:hidden;
+}
+.table thead th{
+  position:sticky; top:0; background:var(--panel2); z-index:1;
+  font-weight:600; text-align:left; font-size:13px; color:var(--muted);
+  border-bottom:1px solid var(--border); padding:10px 10px;
+}
+.table td{ padding:10px; border-bottom:1px solid var(--border); vertical-align:middle }
+.table tbody tr:nth-child(odd){ background:color-mix(in srgb, var(--panel) 90%, var(--panel2) 10%) }
+.table tbody tr:hover{ background:color-mix(in srgb, var(--panel2) 75%, var(--accent) 6%) }
+.table .right{ text-align:right } .table .center{ text-align:center }
+.badge{
+  display:inline-block; min-width:42px; text-align:center; padding:2px 6px;
+  border-radius:8px; font-size:12px; background:color-mix(in srgb, var(--panel2) 85%, var(--accent) 15%);
+  color:var(--text); border:1px solid var(--border);
+}
+
+/* =========================
+   Controls & misc
+   ========================= */
+.controls{display:flex; flex-direction:column; gap:8px}
+.check{display:flex; align-items:center; gap:8px}
+
+/* table wrapper to keep sticky header tidy */
+.table-wrap{ margin-top:10px; overflow:auto }
+
+/* meta row under connection card */
+.meta{ display:flex; align-items:center; gap:8px; margin-top:10px; font-size:13px }
+.meta .sep{ width:1px; height:12px; background:var(--border); display:inline-block; margin:0 6px }
+
+/* stats + cpu bars */
+.stats{ display:flex; gap:14px; flex-wrap:wrap }
+.stat{ min-width:160px }
+.stat-k{ color:var(--muted); font-size:12px; margin-bottom:4px }
+.stat-v{ font-weight:600 }
+.stat.grow{ flex:1 }
+.cpu{ display:flex; flex-direction:column; gap:6px }
+.cpu-row{ display:grid; grid-template-columns:42px 1fr auto; align-items:center; gap:8px }
+.cpu-bar{ height:8px; border:1px solid var(--border); background:var(--panel2); border-radius:999px; overflow:hidden }
+.cpu-bar > div{ height:100%; width:0%; background:linear-gradient(90deg,#ef4444,#f59e0b,#22c55e); transition:width .25s ease }
+
+/* Narrow screens tweaks that affect components */
+@media (max-width:420px){
+  .kv{ grid-template-columns:100px 1fr }
+  .table thead{ font-size:12px }
+}

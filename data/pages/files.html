@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>ESP32 Files</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div id="menuBtn" class="hamburger" aria-label="Menu" title="Menu">
+        <span></span><span></span><span></span>
+      </div>
+      <img src="/assets/img/logo.png" alt="" class="logo" onerror="this.style.display='none'"/>
+      <div>
+        <h1 class="title">ESP32 Files</h1>
+        <div class="subtitle">host: <span id="hostname">–</span></div>
+      </div>
+    </div>
+    <a class="btn" href="/">← dashboard</a>
+  </header>
+
+  <aside id="drawer" class="drawer" aria-hidden="true">
+    <h3 style="margin-top:0">Menu</h3>
+    <a href="/">Dashboard</a>
+    <a href="/pages/files.html">Files</a>
+  </aside>
+
+  <main class="grid" style="grid-template-columns:1fr;">
+    <section class="card">
+      <div class="card-h"><h2>LittleFS</h2></div>
+
+      <div class="kv" style="margin-bottom:10px">
+        <div class="k">Total</div><div id="fsTotal" class="v mono">–</div>
+        <div class="k">Used</div><div id="fsUsed"  class="v mono">–</div>
+      </div>
+
+      <div class="meta">
+        <span class="muted">Path:</span> <span id="path" class="mono">/</span>
+        <span class="sep"></span>
+        <span id="lastUpdated" class="muted">–</span>
+      </div>
+
+      <div class="table-wrap" style="margin-top:12px">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th class="mono">Size (bytes)</th>
+              <th>Dir</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"><tr><td colspan="4" class="muted">Loading…</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="controls" style="margin-top:14px">
+        <form id="uploadForm" class="controls" enctype="multipart/form-data">
+          <div class="check">
+            <input class="input" type="file" id="fileInput" name="file" required>
+            <label class="check"><input id="overwrite" type="checkbox"> <span>Overwrite</span></label>
+            <button class="btn" type="submit">Upload</button>
+          </div>
+        </form>
+
+        <form id="renameForm" class="controls">
+          <div class="check" style="gap:10px">
+            <input class="input" type="text" id="fromName" placeholder="from (item in current path)" required>
+            <input class="input" type="text" id="toName"   placeholder="to (new name)" required>
+            <button class="btn" type="submit">Rename</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <span>© <span id="year"></span> ESP32</span>
+  </footer>
+
+  <script type="module" src="/assets/js/files.js"></script>
+</body>
+</html>

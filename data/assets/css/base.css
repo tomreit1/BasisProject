@@ -1,0 +1,48 @@
+/* =========================
+   Design tokens / theming
+   ========================= */
+:root{
+  --bg:#0b0c10; --panel:#14161a; --panel2:#181b21; --text:#eaf0f4; --muted:#a7b0bb;
+  --accent:#66d9ef; --ok:#22c55e; --bad:#ef4444; --warn:#f59e0b; --border:#21242b;
+  --ring:rgba(102,217,239,.35); --shadow:0 8px 24px rgba(0,0,0,.28);
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --panel2:#f7f9fc; --text:#0b1220; --muted:#5b6b7b;
+    --accent:#2563eb; --border:#e6e9ef; --ring:rgba(37,99,235,.28); --shadow:0 10px 26px rgba(0,0,0,.06);
+  }
+}
+
+/* Optional hard override via data-theme */
+:root[data-theme="light"]{
+  --bg:#f6f8fb; --panel:#ffffff; --panel2:#f7f9fc; --text:#0b1220; --muted:#5b6b7b;
+  --accent:#2563eb; --border:#e6e9ef; --ring:rgba(37,99,235,.28); --shadow:0 10px 26px rgba(0,0,0,.06);
+}
+:root[data-theme="dark"]{
+  --bg:#0b0c10; --panel:#14161a; --panel2:#181b21; --text:#eaf0f4; --muted:#a7b0bb;
+  --accent:#66d9ef; --border:#21242b; --ring:rgba(102,217,239,.35); --shadow:0 8px 24px rgba(0,0,0,.28);
+}
+
+/* =========================
+   Base
+   ========================= */
+html,body{height:100%}
+html{box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font:14px/1.6 Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
+.mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace}
+.muted{color:var(--muted)}
+.hidden{display:none}
+
+/* Focus ring (a11y) */
+:focus-visible{
+  outline:2px solid var(--ring);
+  outline-offset:2px;
+  border-radius:10px;
+}
