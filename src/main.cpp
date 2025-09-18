@@ -12,7 +12,7 @@ void setup() {
   WiFiService.begin("mijn-esp32",
                     WiFiModeSel::AP,
                     "MijnSSID", "MijnPass",/*Wifi netwerk*/
-                    "ESP-AP", "SterkAPWachtwoord"/*Accespoint netwerk*/,
+                    "SpuitMeDeBekVol", "SterkAPWachtwoord"/*Accespoint netwerk*/,
                     /*useWiFiManager=*/false);
   OTAService.begin("mijn-esp32", "OTApassword", 3232);
   WebServerService.begin();

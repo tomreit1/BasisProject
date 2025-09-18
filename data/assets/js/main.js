@@ -1,2 +1,2 @@
-import { initDashboard } from "./ui/pages/dashboard.js";
-initDashboard();
+import { initIndex } from "./ui/pages/index.js";
+initIndex();
