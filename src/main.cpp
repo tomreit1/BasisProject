@@ -3,6 +3,7 @@
 #include <TaskMonitor/TaskMonitor.h>
 #include <Wifihandler/Wifihandler.h>
 #include "WebServer/WebServer.h"
+#include "Secrets.h"
 
 void setup()
 {
@@ -10,13 +11,13 @@ void setup()
   TaskMonitor::begin(500);  // 500 ms venster + autocalibratie
   TaskMonitor::printOnce(); // eerste snapshot
   WiFiService.begin("mijn-esp32",
-                    WiFiModeSel::AP,
-                    "MijnSSID", "MijnPass", /*Wifi netwerk*/
-                    "SpuitMeDeBekVol", "SterkAPWachtwoord" /*Accespoint netwerk*/,
+                    WiFiModeSel::STA,
+                    WIFI_SSID, WIFI_PASS, /*Wifi netwerk*/
+                    WIFI_AP_SSID, WIFI_AP_PASS /*Accespoint netwerk*/,
                     /*useWiFiManager=*/false);
-  OTAService.begin("mijn-esp32", "OTApassword", 3232);
+  OTAService.begin("Temperatuur_Sensor_Woonkamer", /*wachtwoord maar nu nog leeg*/ "", 3232);
   WebServerService.begin();
-}//hihi
+} // hihi
 
 void loop()
 {
