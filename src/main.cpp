@@ -5,7 +5,6 @@
 #include "WebServer/WebServer.h"
 #include "Passwords.h" // bevat WIFI_SSID, WIFI_PASS, WIFI_AP_SSID,
 
-
 void setup()
 {
   Serial.begin(115200);
@@ -18,7 +17,7 @@ void setup()
                     /*useWiFiManager=*/false);
   OTAService.begin("Temperatuur_Sensor_Woonkamer", /*wachtwoord maar nu nog leeg*/ "", 3232);
   WebServerService.begin();
-} // hihi
+} 
 
 void loop()
 {
