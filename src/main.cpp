@@ -3,7 +3,8 @@
 #include <TaskMonitor/TaskMonitor.h>
 #include <Wifihandler/Wifihandler.h>
 #include "WebServer/WebServer.h"
-#include "Secrets.h"
+#include "Passwords.h" // bevat WIFI_SSID, WIFI_PASS, WIFI_AP_SSID,
+
 
 void setup()
 {
