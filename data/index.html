@@ -1,70 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ESP32 Template</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ESP32 Template</title>
 
-  <!-- Stijl (onze split) -->
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/layout.css">
-  <link rel="stylesheet" href="/assets/css/components.css">
-</head>
-<body>
-  <!-- Header -->
-  <header class="app-header">
-    <div class="brand">
-      <div id="menuBtn" class="hamburger" aria-label="Menu" title="Menu">
-        <span></span><span></span><span></span>
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div id="menuBtn" class="hamburger" aria-label="Menu" title="Menu">
+          <span></span><span></span><span></span>
+        </div>
+
+        <img
+          src="/assets/img/logo.png"
+          alt=""
+          class="logo"
+          onerror="this.style.display='none'"
+        />
+
+        <div>
+          <h1 class="title">ESP32 Dashboard</h1>
+          <div class="subtitle">host: <span id="hostname">–</span></div>
+        </div>
       </div>
+    </header>
 
-      <img src="/assets/img/logo.png" alt="" class="logo" onerror="this.style.display='none'"/>
+    <!-- Drawer -->
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <h3 style="margin-top: 0">Menu</h3>
+      <a href="/">Index</a>
+      <a href="/pages/files.html">Files</a>
+      <a href="/pages/SystemInfo.html">System Info</a>
+    </aside>
 
-      <div>
-        <h1 class="title">ESP32 Template</h1>
-        <div class="subtitle">host: <span id="hostname">–</span></div>
-      </div>
-    </div>
-  </header>
+    <!-- Main -->
+    <main class="grid">
+      <section class="card">
+        <div class="card-h"><h2>Welcome</h2></div>
+        <p class="muted" style="margin-top: 2px">
+          Dit is een lege startpagina voor je ESP32 template. Voeg hier je eigen
+          kaarten, knoppen of grafieken toe.
+        </p>
+      </section>
+    </main>
 
-  <!-- Drawer -->
-  <aside id="drawer" class="drawer" aria-hidden="true">
-    <h3 style="margin-top:0">Menu</h3>
-    <a href="/">Home</a>
-    <a href="/pages/SystemInfo.html">System info</a>
-    <a href="/pages/files.html">Files</a>
-  </aside>
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span>© <span id="year"></span> ESP32</span>
+    </footer>
 
-  <!-- Main (lekker leeg maar in onze stijl) -->
-  <main class="grid">
-    <section class="card">
-      <div class="card-h"><h2>Welcome</h2></div>
-      <p class="muted" style="margin-top:2px">
-        Dit is een lege startpagina voor je ESP32 template.
-        Voeg hier je eigen kaarten, knoppen of grafieken toe.
-      </p>
-      <div class="meta" style="margin-top:12px">
-        <a class="btn" href="/pages/system.html">Open system info</a>
-        <a class="btn" href="/pages/files.html">Open files</a>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="card-h"><h2>Quick links</h2></div>
-      <ul style="margin:6px 0 0 18px">
-        <li><a href="/health" target="_blank">/health</a></li>
-        <li><a href="/sys/info" target="_blank">/sys/info</a></li>
-        <li><a href="/fs/info" target="_blank">/fs/info</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="app-footer">
-    <span>© <span id="year"></span> ESP32</span>
-  </footer>
-
-  <!-- Klein entry script (alleen basics) -->
-  <script type="module" src="/assets/js/main.js"></script>
-</body>
+    <!-- Entry script -->
+    <script type="module" src="/assets/js/main.js"></script>
+    <!-- Kleine, zelfstandige drawer-toggle (mag later ook naar main.js) -->
+    <script>
+      (function () {
+        const menuBtn = document.getElementById("menuBtn");
+        const drawer = document.getElementById("drawer");
+        menuBtn?.addEventListener("click", () =>
+          drawer.classList.toggle("open")
+        );
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") drawer?.classList.remove("open");
+        });
+        drawer?.addEventListener("click", (e) => {
+          if (e.target.tagName === "A") drawer.classList.remove("open");
+        });
+      })();
+    </script>
+  </body>
 </html>

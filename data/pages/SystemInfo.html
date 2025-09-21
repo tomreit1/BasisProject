@@ -1,167 +1,203 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>ESP32 System Info</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ESP32 System Info</title>
 
-  <!-- Gesplitste CSS -->
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/layout.css">
-  <link rel="stylesheet" href="/assets/css/components.css">
-</head>
-<body>
-  <!-- Header -->
-  <header class="app-header">
-    <div class="brand">
-      <div id="menuBtn" class="hamburger" aria-label="Menu" title="Menu">
-        <span></span><span></span><span></span>
-      </div>
-
-      <img src="/assets/img/logo.png" alt="" class="logo" onerror="this.style.display='none'"/>
-
-      <div>
-        <h1 class="title">ESP32 Dashboard</h1>
-        <div class="subtitle">host: <span id="hostname">–</span></div>
-      </div>
-    </div>
-
-    <div class="header-tools">
-      <span class="health-chip">
-        <span id="dot" class="dot"></span>
-        <span id="healthText">–</span>
-      </span>
-      <label class="switch">
-        <input id="autoRefresh" type="checkbox" checked>
-        <span>Auto refresh</span>
-      </label>
-    </div>
-  </header>
-
-  <!-- Drawer -->
-  <aside id="drawer" class="drawer" aria-hidden="true">
-    <h3 style="margin-top:0">Menu</h3>
-    <a href="/">Index</a>
-    <a href="/pages/files.html">Files</a>
-    <a href="/pages/SystemInfo.html">System Info</a>
-  </aside>
-
-  <!-- Main grid -->
-  <main class="grid">
-
-    <!-- Connection -->
-    <section class="card">
-      <div class="card-h">
-        <h2>Connection</h2>
-        <span id="modeTag" class="tag hidden"></span>
-      </div>
-
-      <div class="kv">
-        <div><span class="k">IP</span><span id="ip" class="v mono">–</span></div>
-        <div><span class="k">SSID</span><span id="ssid" class="v">–</span></div>
-        <div><span class="k">RSSI</span><span><span id="rssiDbm" class="v mono">–</span> dBm</span></div>
-      </div>
-
-      <div class="meter">
-        <div id="rssiBar" class="meter-bar"></div>
-      </div>
-      <div class="meter-label">
-        Signal quality: <strong id="rssiQualityText">–%</strong>
-      </div>
-
-      <div class="meta">
-        <span class="muted">Last update:</span> <span id="lastUpdated" class="mono">–</span>
-        <span class="sep"></span>
-        <span class="muted">Ping:</span> <span id="latency" class="mono">– ms</span>
-        <button id="btnPing" class="btn btn-small" style="margin-left:auto">Ping now</button>
-      </div>
-    </section>
-
-    <!-- System -->
-    <section class="card">
-      <div class="card-h"><h2>System</h2></div>
-
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-k">Uptime</div>
-          <div id="sysUptime" class="stat-v mono skeleton">–</div>
+    <!-- Gesplitste CSS -->
+    <link rel="stylesheet" href="/assets/css/base.css" />
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/components.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div id="menuBtn" class="hamburger" aria-label="Menu" title="Menu">
+          <span></span><span></span><span></span>
         </div>
-        <div class="stat">
-          <div class="stat-k">Heap free</div>
-          <div id="sysHeap" class="stat-v mono skeleton">–</div>
+
+        <img
+          src="/assets/img/logo.png"
+          alt=""
+          class="logo"
+          onerror="this.style.display='none'"
+        />
+
+        <div>
+          <h1 class="title">ESP32 Dashboard</h1>
+          <div class="subtitle">host: <span id="hostname">–</span></div>
         </div>
-        <div class="stat grow">
-          <div class="stat-k">CPU load</div>
-          <div class="cpu">
-            <div class="cpu-row">
-              <span>core0</span>
-              <div class="cpu-bar"><div id="cpu0bar"></div></div>
-              <span class="mono"><span id="cpu0">–</span>%</span>
-            </div>
-            <div class="cpu-row">
-              <span>core1</span>
-              <div class="cpu-bar"><div id="cpu1bar"></div></div>
-              <span class="mono"><span id="cpu1">–</span>%</span>
+      </div>
+
+      <div class="header-tools">
+        <span class="health-chip">
+          <span id="dot" class="dot"></span>
+          <span id="healthText">–</span>
+        </span>
+        <label class="switch">
+          <input id="autoRefresh" type="checkbox" checked />
+          <span>Auto refresh</span>
+        </label>
+      </div>
+    </header>
+
+    <!-- Drawer -->
+    <aside id="drawer" class="drawer" aria-hidden="true">
+      <h3 style="margin-top: 0">Menu</h3>
+      <a href="/">Index</a>
+      <a href="/pages/files.html">Files</a>
+      <a href="/pages/SystemInfo.html">System Info</a>
+    </aside>
+
+    <!-- Main grid -->
+    <main class="grid">
+      <!-- Connection -->
+      <section class="card">
+        <div class="card-h">
+          <h2>Connection</h2>
+          <span id="modeTag" class="tag hidden"></span>
+        </div>
+
+        <div class="kv">
+          <div>
+            <span class="k">IP</span><span id="ip" class="v mono">–</span>
+          </div>
+          <div>
+            <span class="k">SSID</span><span id="ssid" class="v">–</span>
+          </div>
+          <div>
+            <span class="k">RSSI</span
+            ><span><span id="rssiDbm" class="v mono">–</span> dBm</span>
+          </div>
+        </div>
+
+        <div class="meter">
+          <div id="rssiBar" class="meter-bar"></div>
+        </div>
+        <div class="meter-label">
+          Signal quality: <strong id="rssiQualityText">–%</strong>
+        </div>
+
+        <div class="meta">
+          <span class="muted">Last update:</span>
+          <span id="lastUpdated" class="mono">–</span>
+          <span class="sep"></span>
+          <span class="muted">Ping:</span>
+          <span id="latency" class="mono">– ms</span>
+          <button id="btnPing" class="btn btn-small" style="margin-left: auto">
+            Ping now
+          </button>
+        </div>
+      </section>
+
+      <!-- System -->
+      <section class="card">
+        <div class="card-h"><h2>System</h2></div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-k">Uptime</div>
+            <div id="sysUptime" class="stat-v mono skeleton">–</div>
+          </div>
+          <div class="stat">
+            <div class="stat-k">Heap free</div>
+            <div id="sysHeap" class="stat-v mono skeleton">–</div>
+          </div>
+          <div class="stat grow">
+            <div class="stat-k">CPU load</div>
+            <div class="cpu">
+              <div class="cpu-row">
+                <span>core0</span>
+                <div class="cpu-bar"><div id="cpu0bar"></div></div>
+                <span class="mono"><span id="cpu0">–</span>%</span>
+              </div>
+              <div class="cpu-row">
+                <span>core1</span>
+                <div class="cpu-bar"><div id="cpu1bar"></div></div>
+                <span class="mono"><span id="cpu1">–</span>%</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="table-wrap">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Name</th><th>Core</th><th>Prio</th><th>StackMin</th><th>Share%</th>
-            </tr>
-          </thead>
-          <tbody id="taskTbody">
-            <tr><td colspan="5" class="muted">Loading…</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Core</th>
+                <th>Prio</th>
+                <th>StackMin</th>
+                <th>Share%</th>
+              </tr>
+            </thead>
+            <tbody id="taskTbody">
+              <tr>
+                <td colspan="5" class="muted">Loading…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <!-- Signal history -->
-    <section class="card">
-      <div class="card-h"><h2>Signal (last minute)</h2></div>
-      <div class="spark-wrap">
-        <svg id="rssiSpark" viewBox="0 0 100 30" preserveAspectRatio="none" aria-label="RSSI history">
-          <polyline id="sparkLine" fill="none" stroke-width="2" points=""></polyline>
-        </svg>
-      </div>
-      <div class="spark-legend">
-        <span>min <span id="rssiMin" class="mono">–</span> dBm</span>
-        <span>max <span id="rssiMax" class="mono">–</span> dBm</span>
-      </div>
-    </section>
+      <!-- Signal history -->
+      <section class="card">
+        <div class="card-h"><h2>Signal (last minute)</h2></div>
+        <div class="spark-wrap">
+          <svg
+            id="rssiSpark"
+            viewBox="0 0 100 30"
+            preserveAspectRatio="none"
+            aria-label="RSSI history"
+          >
+            <polyline
+              id="sparkLine"
+              fill="none"
+              stroke-width="2"
+              points=""
+            ></polyline>
+          </svg>
+        </div>
+        <div class="spark-legend">
+          <span>min <span id="rssiMin" class="mono">–</span> dBm</span>
+          <span>max <span id="rssiMax" class="mono">–</span> dBm</span>
+        </div>
+      </section>
 
-    <!-- Actions -->
-    <section class="card">
-      <div class="card-h"><h2>Controls</h2></div>
-      <div class="controls">
-        <div class="muted">Updates connection, health & system elke 3s.</div>
-      </div>
-    </section>
+      <!-- Actions -->
+      <section class="card">
+        <div class="card-h"><h2>Controls</h2></div>
+        <div class="controls">
+          <div class="muted">Updates connection, health & system elke 3s.</div>
+        </div>
+      </section>
+    </main>
 
-  </main>
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span>© <span id="year"></span> ESP32</span>
+    </footer>
 
-  <!-- Footer -->
-  <footer class="app-footer">
-    <span>© <span id="year"></span> ESP32</span>
-  </footer>
+    <!-- Entry script (ES modules) -->
+    <script type="module" src="/assets/js/SystemInfo.js"></script>
 
-  <!-- Entry script (ES modules) -->
-  <script type="module" src="/assets/js/SystemInfo.js"></script>
-
-  <!-- Kleine, zelfstandige drawer-toggle (mag later ook naar main.js) -->
-  <script>
-    (function(){
-      const menuBtn = document.getElementById('menuBtn');
-      const drawer  = document.getElementById('drawer');
-      menuBtn?.addEventListener('click', () => drawer.classList.toggle('open'));
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') drawer?.classList.remove('open'); });
-      drawer?.addEventListener('click', e => { if (e.target.tagName === 'A') drawer.classList.remove('open'); });
-    })();
-  </script>
-</body>
+    <!-- Kleine, zelfstandige drawer-toggle (mag later ook naar main.js) -->
+    <script>
+      (function () {
+        const menuBtn = document.getElementById("menuBtn");
+        const drawer = document.getElementById("drawer");
+        menuBtn?.addEventListener("click", () =>
+          drawer.classList.toggle("open")
+        );
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") drawer?.classList.remove("open");
+        });
+        drawer?.addEventListener("click", (e) => {
+          if (e.target.tagName === "A") drawer.classList.remove("open");
+        });
+      })();
+    </script>
+  </body>
 </html>
