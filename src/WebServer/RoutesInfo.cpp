@@ -39,37 +39,6 @@ namespace Routes
     // /health
     srv.on("/health", HTTP_GET, [](AsyncWebServerRequest *req)
            { req->send(200, "application/json", "{\"status\":\"ok\"}"); });
-
-    // /CreateMemoryFault
-    srv.on("/CreateMemoryFault", HTTP_GET, [](AsyncWebServerRequest *req)
-           {
-    int a[20];
-    a[100] = 123; });
-
-    srv.on("/fault/null", HTTP_GET, [](AsyncWebServerRequest *req)
-           {
-  volatile int* p = (volatile int*)0x0;
-  *p = 42; // PANIC
-  req->send(200, "text/plain", "won't reach"); });
-
-    srv.on("/fault/abort", HTTP_GET, [](AsyncWebServerRequest *req)
-           {
-  abort(); // PANIC
-  req->send(200, "text/plain", "won't reach"); });
-
-    srv.on("/fault/div0", HTTP_GET, [](AsyncWebServerRequest *req)
-           { 
-  int a = 1;
-  int b = 0; 
-  int c = a / b; // PANIC
-  req->send(200, "text/plain", "won't reach"); });
-
-    srv.on("/fault/wdt", HTTP_GET, [](AsyncWebServerRequest *req)
-           { 
-              while (true) { 
-                /* geen yield/delay → WDT */ 
-              }
-  req->send(200, "text/plain", "won't reach"); });
   }
 
 } // namespace Routes
